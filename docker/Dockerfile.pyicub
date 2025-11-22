@@ -2,7 +2,7 @@ ARG DOCKER_SRC=ubuntu:latest
 FROM $DOCKER_SRC
 
 ARG WORKDIR="/usr/local/src/robot"
-ARG PYICUB_URL=https://github.com/s4hri/pyicub
+ARG PYICUB_URL=https://github.com/g0vann/pyicub
 ARG PYICUB_VERSION=master
 ARG PYICUB_APPS_URL=https://github.com/s4hri/pyicub-apps
 ARG PYICUB_APPS_VERSION=master
