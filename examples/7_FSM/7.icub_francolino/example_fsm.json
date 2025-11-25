@@ -1,0 +1,59 @@
+{
+    "name": "GreetingFSM",
+    "states": [
+        { "name": "Idle", "description": "Lo stato iniziale di attesa" },
+        { "name": "Greeting", "description": "Esegue un'azione di saluto" }
+    ],
+    "transitions": [
+        { "source": "init", "dest": "Idle", "trigger": "start" },
+        { "source": "Idle", "dest": "Greeting", "trigger": "greet" },
+        { "source": "Greeting", "dest": "Idle", "trigger": "back_to_idle" }
+    ],
+    "actions": {
+        "Greeting": {
+            "name": "Greeting",
+            "description": "Un semplice movimento della testa come saluto",
+            "offset_ms": 0,
+            "wait_for_steps": [ true ],
+            "steps": [
+                {
+                    "name": "HeadNodStep",
+                    "offset_ms": 0,
+                    "gaze_motion": null,
+                    "custom_calls": [],
+                    "limb_motions": {
+                        "head": {
+                            "part": {
+                                "name": "head",
+                                "robot_part": "head",
+                                "joints_nr": 6,
+                                "joints_list": [ "neck_pitch", "neck_roll", "neck_yaw", "eyes_tilt", "eyes_roll", "eyes_vergence" ],
+                                "joints_speed": [ 10, 10, 10, 10, 10, 10 ]
+                            },
+                            "checkpoints": [
+                                {
+                                    "duration": 1000,
+                                    "timeout": 5,
+                                    "joints_speed": [ 10, 10, 10, 10, 10, 10 ],
+                                    "pose": {
+                                        "target_joints": [ 20.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+                                        "joints_list": [ "neck_pitch", "neck_roll", "neck_yaw", "eyes_tilt", "eyes_roll", "eyes_vergence" ]
+                                    }
+                                },
+                                {
+                                    "duration": 1000,
+                                    "timeout": 5,
+                                    "joints_speed": [ 10, 10, 10, 10, 10, 10 ],
+                                    "pose": {
+                                        "target_joints": [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+                                        "joints_list": [ "neck_pitch", "neck_roll", "neck_yaw", "eyes_tilt", "eyes_roll", "eyes_vergence" ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
