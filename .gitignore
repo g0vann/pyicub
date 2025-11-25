@@ -101,3 +101,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Docker files
+docker/compose.yaml
+docker/run.sh
+docker/setup.sh
