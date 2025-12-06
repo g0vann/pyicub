@@ -192,6 +192,15 @@ class DynamicFSMServer(iCubRESTApp):
 
             new_fsm = iCubFSM(JSON_dict=fsm_definition)
             self.setFSM(new_fsm)
+
+            # Svuota azioni precedenti di questa app/FSM
+            self.flushActions(name_prefix=self.name + '.FSM')
+            self.flushActions(name_prefix=self.name + '.iCubFSM')
+
+            # Importa le nuove azioni della FSM caricata
+            for action in self.fsm.actions.values():
+                self.importAction(action, name_prefix=self.name + '.' + self.fsm.name)
+
             fsm_name = new_fsm.name or "UnnamedFSM"
             self.logger.info(f"Nuova FSM '{fsm_name}' caricata con successo.")
             return {
