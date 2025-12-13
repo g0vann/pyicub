@@ -52,6 +52,7 @@ import threading
 import functools
 import importlib
 import logging
+import re
 
 logging.getLogger('werkzeug').setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -957,6 +958,11 @@ class iCubFSM(FSM):
     def __init__(self, JSON_dict=None, JSON_file=None):
         self._app_ = None
         self._actions_ = {}
+        # -- START NEW FSM API CODE --
+        self.fsm_instance = None # Instance of the currently loaded FSM
+        self.actions_path = 'actions/' # Path to the repository of action JSON files
+        os.makedirs(self.actions_path, exist_ok=True) # Ensure actions directory exists
+        # -- END NEW FSM API CODE --
         FSM.__init__(self, name=self.__class__.__name__, JSON_dict=JSON_dict, JSON_file=JSON_file)
 
     @property
@@ -1008,6 +1014,140 @@ class iCubFSM(FSM):
         data = json.dumps(data, default=lambda o: o.__dict__, indent=4, ensure_ascii=False)
         exportJSONFile(filepath, data)
    
+    # -- START NEW FSM API CODE --
+    def actions_palette(self, action_name=None):
+        """
+        Handles requests for the actions palette.
+        GET /actions: Lists all available action names (without extension).
+        GET /actions/<action_name>: Returns the JSON definition of a specific action.
+        """
+        try:
+            if action_name is None:
+                # List all action files
+                action_files = [f for f in os.listdir(self.actions_path) if f.endswith('.json')]
+                action_names = [os.path.splitext(f)[0] for f in action_files]
+                return jsonify(action_names), 200
+            else:
+                # Get specific action details
+                action_file_path = os.path.join(self.actions_path, f"{action_name}.json")
+                if os.path.exists(action_file_path) and os.path.isfile(action_file_path):
+                    with open(action_file_path, 'r') as f:
+                        action_data = json.load(f)
+                    return jsonify(action_data), 200
+                else:
+                    return jsonify({"error": f"Action '{action_name}' not found."}), 404
+        except FileNotFoundError:
+            return jsonify({"error": f"Actions directory '{self.actions_path}' not found or accessible."}), 500
+        except json.JSONDecodeError:
+            return jsonify({"error": f"Invalid JSON in action file '{action_name}.json'."}), 500
+        except Exception as e:
+            # Log the error for debugging
+            logging.error(f"Error in actions_palette: {e}")
+            return jsonify({"error": "Internal server error."}), 500
+    
+    def create_action_in_palette(self, data):
+        """
+        Handles POST request to create a new action.
+        POST /actions: Creates a new action JSON file from the provided data.
+        Expected 'data' JSON: {'action_name': 'my_action', 'action_json': {...}}
+        """
+        try:
+            if not isinstance(data, dict):
+                return jsonify({"error": "Invalid request body. Expected JSON object."}), 400
+
+            action_name = data.get('action_name')
+            action_json_content = data.get('action_json')
+
+            if not action_name or not action_json_content:
+                return jsonify({"error": "Missing 'action_name' or 'action_json' in request body."}), 400
+            
+            if not isinstance(action_name, str) or not action_name.strip():
+                return jsonify({"error": "Invalid 'action_name'. Must be a non-empty string."}), 400
+
+            # Sanitize action_name to prevent path traversal or invalid filenames
+            # Basic sanitization: allow alphanumeric, underscore, hyphen
+            if not re.fullmatch(r'[\w_-]+', action_name):
+                 return jsonify({"error": "Invalid characters in 'action_name'. Use alphanumeric, underscore, or hyphen."}), 400
+
+            action_file_path = os.path.join(self.actions_path, f"{action_name}.json")
+
+            if os.path.exists(action_file_path):
+                return jsonify({"error": f"Action '{action_name}' already exists. Use PUT for update if available, or choose a different name."}), 409 # Conflict
+
+            with open(action_file_path, 'w') as f:
+                json.dump(action_json_content, f, indent=4)
+            
+            return jsonify({"message": f"Action '{action_name}' created successfully."}), 201 # Created
+
+        except Exception as e:
+            logging.error(f"Error creating action: {e}")
+            return jsonify({"error": "Internal server error."}), 500
+    # -- END NEW FSM API CODE --
+
+    # -- START NEW FSM API CODE --
+    def load_fsm_definition(self, data):
+        """
+        Handles POST request to load an FSM definition.
+        POST /load_fsm: Loads an FSM from the provided JSON definition.
+        Expected 'data' JSON: {'fsm_definition': {...}}
+        """
+        try:
+            if not isinstance(data, dict) or 'fsm_definition' not in data:
+                return jsonify({"error": "Invalid request body. Expected JSON object with 'fsm_definition'."}), 400
+            
+            fsm_definition = data.get('fsm_definition')
+            if not isinstance(fsm_definition, dict):
+                return jsonify({"error": "Invalid 'fsm_definition'. Expected a JSON object."}), 400
+
+            fsm_name = fsm_definition.get('name', 'unnamed_fsm')
+
+            # Instantiate the FSM
+            self.fsm_instance = FSM(name=fsm_name, JSON_dict=fsm_definition)
+            
+            return jsonify({"message": f"FSM '{fsm_name}' loaded successfully."}), 200
+
+        except Exception as e:
+            logging.error(f"Error loading FSM: {e}")
+            return jsonify({"error": "Internal server error."}), 500
+    # -- END NEW FSM API CODE --
+
+    # -- START NEW FSM API CODE --
+    def get_full_fsm_definition(self):
+        """
+        Handles POST request to export the currently loaded FSM definition.
+        POST /get_full_fsm: Returns the JSON definition of the currently loaded FSM.
+        """
+        try:
+            if self.fsm_instance is None:
+                return jsonify({"error": "No FSM currently loaded."}), 404
+            
+            # Serialize actions explicitly using their toJSON method if available, or __dict__
+            serialized_actions = {}
+            # Access self.fsm_instance.actions which is a property returning _actions_
+            for name, action_obj in self.fsm_instance.actions.items():
+                if hasattr(action_obj, 'toJSON') and callable(action_obj.toJSON):
+                    # If action object has a toJSON method, call it and parse if it returns string
+                    json_str = action_obj.toJSON()
+                    serialized_actions[name] = json.loads(json_str) if isinstance(json_str, str) else json_str
+                else:
+                    # Fallback to __dict__ if no specific toJSON method
+                    serialized_actions[name] = action_obj.__dict__
+
+
+            fsm_data = {
+                "name": self.fsm_instance._name_,
+                "states": self.fsm_instance._states_,
+                "transitions": self.fsm_instance._transitions_,
+                "initial_state": self.fsm_instance._machine_.initial,
+                "actions": serialized_actions
+            }
+            
+            return jsonify(fsm_data), 200
+
+        except Exception as e:
+            logging.error(f"Error exporting FSM: {e}")
+            return jsonify({"error": "Internal server error."}), 500
+    # -- END NEW FSM API CODE --
 class PyiCubRESTfulClient:
 
     def __init__(self, host, port, rule_prefix='pyicub'):
