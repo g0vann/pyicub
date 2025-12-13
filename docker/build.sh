@@ -1,3 +1,8 @@
 #!/bin/bash
 
-LOCAL_USER_UID=$(id -u) LOCAL_USER_GID=$(id -g) docker compose build
+CACHE_BUST=$(date +%s)
+
+LOCAL_USER_UID=$(id -u) \
+LOCAL_USER_GID=$(id -g) \
+CACHE_BUST=$CACHE_BUST \
+docker compose build pyicub

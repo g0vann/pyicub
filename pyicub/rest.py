@@ -726,6 +726,10 @@ class iCubRESTApp(PyiCubRESTfulServer):
                 robot_name = "icubSim"
 
         PyiCubRESTfulServer.__init__(self, robot_name=robot_name, **kargs)
+
+        # Register the new FSM management endpoints
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.load_fsm, target_name='fsm.load_fsm')
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.get_full_fsm, target_name='fsm.get_full_fsm')
         
         self.__action_repository__ = action_repository_path
 
@@ -865,6 +869,71 @@ class iCubRESTApp(PyiCubRESTfulServer):
             url = self.rest_manager.proxy_rule() + '/' + self.__robot_name__ + '/helper/actions.flushActions'
             res = requests.post(url=url, json=data)
             return res.json()
+
+    def load_fsm(self, **fsm_definition):
+        """
+        Loads a new FSM from a JSON definition, replacing the current one.
+        This method handles the FSM object and its associated actions.
+        """
+        try:
+            self.logger.info("Received request to load a new FSM...")
+            if not fsm_definition:
+                self.logger.warning("Attempted to load an FSM from an empty JSON.")
+                return {"status": "error", "message": "Request body cannot be empty."}, 400
+
+            # 1. Create the new iCubFSM object from the JSON definition
+            new_fsm = iCubFSM(JSON_dict=fsm_definition)
+
+            # 2. Set the new FSM in the application.
+            # The existing setFSM method already handles registering the FSM's methods.
+            self.setFSM(new_fsm)
+
+            # 3. Flush old actions and import new ones.
+            # This logic is similar to what's in __configure__
+            self.flushActions(name_prefix=self.name + '.FSM')
+            self.flushActions(name_prefix=self.name + '.iCubFSM')
+            for action in self.fsm.actions.values():
+                self.importAction(action, name_prefix=self.name + '.' + self.fsm.name)
+
+            fsm_name = new_fsm.name or "UnnamedFSM"
+            self.logger.info(f"New FSM '{fsm_name}' loaded successfully.")
+            return {
+                "status": "success",
+                "message": f"FSM '{fsm_name}' loaded.",
+                "initial_triggers": self.fsm.getCurrentTriggers()
+            }
+        except Exception as e:
+            self.logger.error(f"Error during FSM loading: {e}")
+            return {"status": "error", "message": str(e)}, 500
+
+    def get_full_fsm(self, **kwargs):
+        """
+        Returns the complete JSON definition of the currently loaded FSM, including actions.
+        """
+        self.logger.info(f"Exporting full definition for FSM '{self.fsm.name}'...")
+        try:
+            if not self.fsm:
+                return {"status": "error", "message": "No FSM is currently loaded."}, 404
+
+            # The FSM object itself might not have a full toJSON with actions.
+            # We construct it here, just like in francolino_v2.py
+            if not isinstance(self.fsm, iCubFSM):
+                 # Fallback for base FSM type, may not include actions
+                return self.fsm.toJSON()
+
+            actions_as_dict = {name: json.loads(action.toJSON()) for name, action in self.fsm.actions.items()}
+            full_fsm_data = {
+                "name": self.fsm.name,
+                "states": self.fsm.getStates(),
+                "transitions": self.fsm.getTransitions(),
+                "initial_state": self.fsm._machine_.initial,
+                "actions": actions_as_dict
+            }
+            return full_fsm_data
+        except Exception as e:
+            self.logger.error(f"Error during full FSM export: {e}")
+            return {"status": "error", "message": str(e)}, 500
+
 
     @property
     def icub(self):
