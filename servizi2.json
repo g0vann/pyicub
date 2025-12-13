@@ -1,0 +1,1080 @@
+{
+    "icubSim": {
+        "helper": {
+            "actions.flushActions": {
+                "app_name": "helper",
+                "name": "actions.flushActions",
+                "robot_name": "icubSim",
+                "signature": {
+                    "name_prefix": ""
+                },
+                "target": "<bound method iCubRESTApp.flushActions of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/actions.flushActions"
+            },
+            "actions.getActions": {
+                "app_name": "helper",
+                "name": "actions.getActions",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iCubRESTApp.getActions of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/actions.getActions"
+            },
+            "actions.importAction": {
+                "app_name": "helper",
+                "name": "actions.importAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "JSON_dict": "",
+                    "name_prefix": ""
+                },
+                "target": "<bound method iCubRESTApp.importActionFromJSONDict of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/actions.importAction"
+            },
+            "actions.playAction": {
+                "app_name": "helper",
+                "name": "actions.playAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "action_id": "",
+                    "wait_for_completed": true
+                },
+                "target": "<bound method iCubRESTApp.playAction of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/actions.playAction"
+            },
+            "attention.add_visual_target": {
+                "app_name": "helper",
+                "name": "attention.add_visual_target",
+                "robot_name": "icubSim",
+                "signature": {
+                    "target": ""
+                },
+                "target": "<bound method VisualAttention.add_visual_target of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.add_visual_target"
+            },
+            "attention.grid_ellipsoid": {
+                "app_name": "helper",
+                "name": "attention.grid_ellipsoid",
+                "robot_name": "icubSim",
+                "signature": {
+                    "P": "",
+                    "a": "",
+                    "b": "",
+                    "c": "",
+                    "num_points": ""
+                },
+                "target": "<bound method VisualAttention.grid_ellipsoid of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.grid_ellipsoid"
+            },
+            "attention.observe_area": {
+                "app_name": "helper",
+                "name": "attention.observe_area",
+                "robot_name": "icubSim",
+                "signature": {
+                    "P": "",
+                    "a": "",
+                    "b": "",
+                    "c": "",
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "num_points": 10,
+                    "waitMotionDone": true
+                },
+                "target": "<bound method VisualAttention.observe_area of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.observe_area"
+            },
+            "attention.observe_points": {
+                "app_name": "helper",
+                "name": "attention.observe_points",
+                "robot_name": "icubSim",
+                "signature": {
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "points_list": "",
+                    "waitMotionDone": true
+                },
+                "target": "<bound method VisualAttention.observe_points of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.observe_points"
+            },
+            "attention.observe_scene": {
+                "app_name": "helper",
+                "name": "attention.observe_scene",
+                "robot_name": "icubSim",
+                "signature": {
+                    "center": "",
+                    "fixation_time": 2.0,
+                    "height": "",
+                    "lookat_point_timeout": 5.0,
+                    "num_points": 10,
+                    "waitMotionDone": true,
+                    "width": ""
+                },
+                "target": "<bound method VisualAttention.observe_scene of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.observe_scene"
+            },
+            "attention.observe_workspace": {
+                "app_name": "helper",
+                "name": "attention.observe_workspace",
+                "robot_name": "icubSim",
+                "signature": {
+                    "center": "",
+                    "depth": "",
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "num_points": 10,
+                    "waitMotionDone": true,
+                    "width": ""
+                },
+                "target": "<bound method VisualAttention.observe_workspace of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.observe_workspace"
+            },
+            "attention.stop_tracking": {
+                "app_name": "helper",
+                "name": "attention.stop_tracking",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method VisualAttention.stop_tracking of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.stop_tracking"
+            },
+            "attention.track_moving_point": {
+                "app_name": "helper",
+                "name": "attention.track_moving_point",
+                "robot_name": "icubSim",
+                "signature": {
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "target": "",
+                    "track_duration": 10.0,
+                    "waitMotionDone": false
+                },
+                "target": "<bound method VisualAttention.track_moving_point of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.track_moving_point"
+            },
+            "attention.visual_search_in_scene": {
+                "app_name": "helper",
+                "name": "attention.visual_search_in_scene",
+                "robot_name": "icubSim",
+                "signature": {
+                    "center": "",
+                    "fixation_time": 2.0,
+                    "height": "",
+                    "lookat_point_timeout": 5.0,
+                    "num_points": 10,
+                    "target": "",
+                    "timeout": 30.0,
+                    "width": ""
+                },
+                "target": "<bound method VisualAttention.visual_search_in_scene of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.visual_search_in_scene"
+            },
+            "attention.visual_search_in_workspace": {
+                "app_name": "helper",
+                "name": "attention.visual_search_in_workspace",
+                "robot_name": "icubSim",
+                "signature": {
+                    "center": "",
+                    "depth": "",
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "num_points": 10,
+                    "target": "",
+                    "timeout": 30.0,
+                    "width": ""
+                },
+                "target": "<bound method VisualAttention.visual_search_in_workspace of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.visual_search_in_workspace"
+            },
+            "attention.visual_tracking_scene": {
+                "app_name": "helper",
+                "name": "attention.visual_tracking_scene",
+                "robot_name": "icubSim",
+                "signature": {
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "starting_point": "",
+                    "target": "",
+                    "track_duration": 30.0
+                },
+                "target": "<bound method VisualAttention.visual_tracking_scene of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.visual_tracking_scene"
+            },
+            "attention.visual_tracking_workspace": {
+                "app_name": "helper",
+                "name": "attention.visual_tracking_workspace",
+                "robot_name": "icubSim",
+                "signature": {
+                    "fixation_time": 2.0,
+                    "lookat_point_timeout": 5.0,
+                    "starting_point": "",
+                    "target": "",
+                    "track_duration": 30.0
+                },
+                "target": "<bound method VisualAttention.visual_tracking_workspace of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.visual_tracking_workspace"
+            },
+            "attention.wait_stable_target": {
+                "app_name": "helper",
+                "name": "attention.wait_stable_target",
+                "robot_name": "icubSim",
+                "signature": {
+                    "max_motion_radius": 0.05,
+                    "scene_center": "",
+                    "scene_height": "",
+                    "scene_width": "",
+                    "stable_duration": 2.0,
+                    "target": "",
+                    "tracking_timeout": 10.0,
+                    "wait_timeout": 10.0
+                },
+                "target": "<bound method VisualAttention.wait_stable_target of <pyicub.modules.attention.VisualAttention object at 0x795979c4e770>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/attention.wait_stable_target"
+            },
+            "cam_left.getHost": {
+                "app_name": "helper",
+                "name": "cam_left.getHost",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getHost of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e5c0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_left.getHost"
+            },
+            "cam_left.getImgRes": {
+                "app_name": "helper",
+                "name": "cam_left.getImgRes",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getImgRes of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e5c0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_left.getImgRes"
+            },
+            "cam_left.getPort": {
+                "app_name": "helper",
+                "name": "cam_left.getPort",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getPort of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e5c0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_left.getPort"
+            },
+            "cam_left.getURI": {
+                "app_name": "helper",
+                "name": "cam_left.getURI",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getURI of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e5c0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_left.getURI"
+            },
+            "cam_right.getHost": {
+                "app_name": "helper",
+                "name": "cam_right.getHost",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getHost of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e290>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_right.getHost"
+            },
+            "cam_right.getImgRes": {
+                "app_name": "helper",
+                "name": "cam_right.getImgRes",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getImgRes of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e290>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_right.getImgRes"
+            },
+            "cam_right.getPort": {
+                "app_name": "helper",
+                "name": "cam_right.getPort",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getPort of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e290>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_right.getPort"
+            },
+            "cam_right.getURI": {
+                "app_name": "helper",
+                "name": "cam_right.getURI",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method cameraPyCtrl.getURI of <pyicub.modules.camera.cameraPyCtrl object at 0x795979c4e290>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/cam_right.getURI"
+            },
+            "emo.angry": {
+                "app_name": "helper",
+                "name": "emo.angry",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.angry of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.angry"
+            },
+            "emo.closingEyes": {
+                "app_name": "helper",
+                "name": "emo.closingEyes",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.closingEyes of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.closingEyes"
+            },
+            "emo.cun": {
+                "app_name": "helper",
+                "name": "emo.cun",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.cun of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.cun"
+            },
+            "emo.eb_smile": {
+                "app_name": "helper",
+                "name": "emo.eb_smile",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.eb_smile of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.eb_smile"
+            },
+            "emo.eb_surprised": {
+                "app_name": "helper",
+                "name": "emo.eb_surprised",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.eb_surprised of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.eb_surprised"
+            },
+            "emo.evil": {
+                "app_name": "helper",
+                "name": "emo.evil",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.evil of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.evil"
+            },
+            "emo.neutral": {
+                "app_name": "helper",
+                "name": "emo.neutral",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.neutral of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.neutral"
+            },
+            "emo.openingEyes": {
+                "app_name": "helper",
+                "name": "emo.openingEyes",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.openingEyes of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.openingEyes"
+            },
+            "emo.sad": {
+                "app_name": "helper",
+                "name": "emo.sad",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.sad of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.sad"
+            },
+            "emo.sendCmd": {
+                "app_name": "helper",
+                "name": "emo.sendCmd",
+                "robot_name": "icubSim",
+                "signature": {
+                    "emo": "",
+                    "part": ""
+                },
+                "target": "<bound method emotionsPyCtrl.sendCmd of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.sendCmd"
+            },
+            "emo.setBrightness": {
+                "app_name": "helper",
+                "name": "emo.setBrightness",
+                "robot_name": "icubSim",
+                "signature": {
+                    "brightness": ""
+                },
+                "target": "<bound method emotionsPyCtrl.setBrightness of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.setBrightness"
+            },
+            "emo.setColor": {
+                "app_name": "helper",
+                "name": "emo.setColor",
+                "robot_name": "icubSim",
+                "signature": {
+                    "color": ""
+                },
+                "target": "<bound method emotionsPyCtrl.setColor of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.setColor"
+            },
+            "emo.smile": {
+                "app_name": "helper",
+                "name": "emo.smile",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.smile of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.smile"
+            },
+            "emo.surprised": {
+                "app_name": "helper",
+                "name": "emo.surprised",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method emotionsPyCtrl.surprised of <pyicub.modules.emotions.emotionsPyCtrl object at 0x795979c4e050>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/emo.surprised"
+            },
+            "gpt.create_session": {
+                "app_name": "helper",
+                "name": "gpt.create_session",
+                "robot_name": "icubSim",
+                "signature": {
+                    "session_id": ""
+                },
+                "target": "<bound method iLLM.create_session of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.create_session"
+            },
+            "gpt.delete_session": {
+                "app_name": "helper",
+                "name": "gpt.delete_session",
+                "robot_name": "icubSim",
+                "signature": {
+                    "session_id": ""
+                },
+                "target": "<bound method iLLM.delete_session of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.delete_session"
+            },
+            "gpt.isValid": {
+                "app_name": "helper",
+                "name": "gpt.isValid",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iLLM.isValid of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.isValid"
+            },
+            "gpt.list_sessions": {
+                "app_name": "helper",
+                "name": "gpt.list_sessions",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iLLM.list_sessions of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.list_sessions"
+            },
+            "gpt.query": {
+                "app_name": "helper",
+                "name": "gpt.query",
+                "robot_name": "icubSim",
+                "signature": {
+                    "text": ""
+                },
+                "target": "<bound method iLLM.query of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.query"
+            },
+            "gpt.quit": {
+                "app_name": "helper",
+                "name": "gpt.quit",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iLLM.quit of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.quit"
+            },
+            "gpt.reset_session": {
+                "app_name": "helper",
+                "name": "gpt.reset_session",
+                "robot_name": "icubSim",
+                "signature": {
+                    "session_id": ""
+                },
+                "target": "<bound method iLLM.reset_session of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.reset_session"
+            },
+            "gpt.set_model": {
+                "app_name": "helper",
+                "name": "gpt.set_model",
+                "robot_name": "icubSim",
+                "signature": {
+                    "model_name": ""
+                },
+                "target": "<bound method iLLM.set_model of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.set_model"
+            },
+            "gpt.set_system_prompt": {
+                "app_name": "helper",
+                "name": "gpt.set_system_prompt",
+                "robot_name": "icubSim",
+                "signature": {
+                    "prompt": ""
+                },
+                "target": "<bound method iLLM.set_system_prompt of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.set_system_prompt"
+            },
+            "gpt.status": {
+                "app_name": "helper",
+                "name": "gpt.status",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iLLM.status of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.status"
+            },
+            "gpt.switch_session": {
+                "app_name": "helper",
+                "name": "gpt.switch_session",
+                "robot_name": "icubSim",
+                "signature": {
+                    "session_id": ""
+                },
+                "target": "<bound method iLLM.switch_session of <pyicub.modules.llm.iGPT object at 0x7959a2e1ad70>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/gpt.switch_session"
+            },
+            "info": {
+                "app_name": "helper",
+                "name": "info",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iCubRESTApp.info of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/info"
+            },
+            "speech.close": {
+                "app_name": "helper",
+                "name": "speech.close",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iSpeakPyCtrl.close of <pyicub.modules.speech.iSpeakPyCtrl object at 0x795979c13790>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/speech.close"
+            },
+            "speech.isValid": {
+                "app_name": "helper",
+                "name": "speech.isValid",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iSpeakPyCtrl.isValid of <pyicub.modules.speech.iSpeakPyCtrl object at 0x795979c13790>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/speech.isValid"
+            },
+            "speech.say": {
+                "app_name": "helper",
+                "name": "speech.say",
+                "robot_name": "icubSim",
+                "signature": {
+                    "something": "",
+                    "waitActionDone": true
+                },
+                "target": "<bound method iSpeakPyCtrl.say of <pyicub.modules.speech.iSpeakPyCtrl object at 0x795979c13790>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/speech.say"
+            },
+            "speech.say_from_file": {
+                "app_name": "helper",
+                "name": "speech.say_from_file",
+                "robot_name": "icubSim",
+                "signature": {
+                    "abs_file_path": "",
+                    "wait_action_done": true
+                },
+                "target": "<bound method iSpeakPyCtrl.say_from_file of <pyicub.modules.speech.iSpeakPyCtrl object at 0x795979c13790>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/speech.say_from_file"
+            },
+            "speech.say_from_folder_rnd": {
+                "app_name": "helper",
+                "name": "speech.say_from_folder_rnd",
+                "robot_name": "icubSim",
+                "signature": {
+                    "abs_folder_path": "",
+                    "random_seed": 0,
+                    "wait_action_done": true
+                },
+                "target": "<bound method iSpeakPyCtrl.say_from_folder_rnd of <pyicub.modules.speech.iSpeakPyCtrl object at 0x795979c13790>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/speech.say_from_folder_rnd"
+            },
+            "utils.configure": {
+                "app_name": "helper",
+                "name": "utils.configure",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method PyiCubRESTfulServer.initHelper of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/utils.configure"
+            },
+            "utils.getArgsTemplate": {
+                "app_name": "helper",
+                "name": "utils.getArgsTemplate",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method PyiCubRESTfulServer.initHelper of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/helper/utils.getArgsTemplate"
+            }
+        },
+        "iCubRESTApp": {
+            "fsm.HeadAction>LookAtAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.HeadAction>LookAtAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Event.trigger of <Event('HeadAction>LookAtAction')@133425202192368>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.HeadAction>LookAtAction"
+            },
+            "fsm.LookAtAction>HeadAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.LookAtAction>HeadAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Event.trigger of <Event('LookAtAction>HeadAction')@133425202192464>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.LookAtAction>HeadAction"
+            },
+            "fsm.LookAtAction>init": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.LookAtAction>init",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Event.trigger of <Event('LookAtAction>init')@133425202191792>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.LookAtAction>init"
+            },
+            "fsm.actions_palette": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.actions_palette",
+                "robot_name": "icubSim",
+                "signature": {
+                    "action_name": ""
+                },
+                "target": "<bound method iCubFSM.actions_palette of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.actions_palette"
+            },
+            "fsm.addAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.addAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "action": ""
+                },
+                "target": "<bound method iCubFSM.addAction of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.addAction"
+            },
+            "fsm.addState": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.addState",
+                "robot_name": "icubSim",
+                "signature": {
+                    "description": "",
+                    "name": "",
+                    "on_enter_callback": "",
+                    "on_exit_callback": ""
+                },
+                "target": "<bound method FSM.addState of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.addState"
+            },
+            "fsm.addTemplate": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.addTemplate",
+                "robot_name": "icubSim",
+                "signature": {
+                    "template": "",
+                    "template_params": ""
+                },
+                "target": "<bound method iCubFSM.addTemplate of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.addTemplate"
+            },
+            "fsm.addTransition": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.addTransition",
+                "robot_name": "icubSim",
+                "signature": {
+                    "after": "",
+                    "before": "",
+                    "conditions": "",
+                    "dest": "",
+                    "prepare": "",
+                    "source": "init",
+                    "trigger": "",
+                    "unless": ""
+                },
+                "target": "<bound method FSM.addTransition of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.addTransition"
+            },
+            "fsm.configureLogging": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.configureLogging",
+                "robot_name": "icubSim",
+                "signature": {
+                    "logging_level": ""
+                },
+                "target": "<bound method FSM.configureLogging of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.configureLogging"
+            },
+            "fsm.create_action_in_palette": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.create_action_in_palette",
+                "robot_name": "icubSim",
+                "signature": {
+                    "data": ""
+                },
+                "target": "<bound method iCubFSM.create_action_in_palette of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.create_action_in_palette"
+            },
+            "fsm.draw": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.draw",
+                "robot_name": "icubSim",
+                "signature": {
+                    "filepath": ""
+                },
+                "target": "<bound method FSM.draw of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.draw"
+            },
+            "fsm.exportJSONFile": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.exportJSONFile",
+                "robot_name": "icubSim",
+                "signature": {
+                    "filepath": ""
+                },
+                "target": "<bound method iCubFSM.exportJSONFile of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.exportJSONFile"
+            },
+            "fsm.getCurrentState": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getCurrentState",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getCurrentState of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getCurrentState"
+            },
+            "fsm.getCurrentTriggers": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getCurrentTriggers",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getCurrentTriggers of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getCurrentTriggers"
+            },
+            "fsm.getLogger": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getLogger",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<function FSM.getLogger at 0x79597a4ebd90>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getLogger"
+            },
+            "fsm.getSessionCount": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getSessionCount",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getSessionCount of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getSessionCount"
+            },
+            "fsm.getSessionID": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getSessionID",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getSessionID of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getSessionID"
+            },
+            "fsm.getState": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getState",
+                "robot_name": "icubSim",
+                "signature": {
+                    "name": ""
+                },
+                "target": "<bound method FSM.getState of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getState"
+            },
+            "fsm.getStateTriggers": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getStateTriggers",
+                "robot_name": "icubSim",
+                "signature": {
+                    "state_name": ""
+                },
+                "target": "<bound method FSM.getStateTriggers of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getStateTriggers"
+            },
+            "fsm.getStates": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getStates",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getStates of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getStates"
+            },
+            "fsm.getTransitions": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getTransitions",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getTransitions of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getTransitions"
+            },
+            "fsm.getTriggers": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.getTriggers",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.getTriggers of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.getTriggers"
+            },
+            "fsm.get_full_fsm_definition": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.get_full_fsm_definition",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method iCubFSM.get_full_fsm_definition of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.get_full_fsm_definition"
+            },
+            "fsm.get_graph": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.get_graph",
+                "robot_name": "icubSim",
+                "signature": {
+                    "force_new": false,
+                    "show_roi": false,
+                    "title": ""
+                },
+                "target": "functools.partial(<bound method GraphMachine._get_graph of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.get_graph"
+            },
+            "fsm.importFromJSONDict": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.importFromJSONDict",
+                "robot_name": "icubSim",
+                "signature": {
+                    "data": ""
+                },
+                "target": "<bound method iCubFSM.importFromJSONDict of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.importFromJSONDict"
+            },
+            "fsm.importFromJSONFile": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.importFromJSONFile",
+                "robot_name": "icubSim",
+                "signature": {
+                    "filepath": ""
+                },
+                "target": "<bound method FSM.importFromJSONFile of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.importFromJSONFile"
+            },
+            "fsm.init>HeadAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.init>HeadAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Event.trigger of <Event('init>HeadAction')@133425202192272>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.init>HeadAction"
+            },
+            "fsm.is_HeadAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.is_HeadAction",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "functools.partial(<bound method Machine.is_state of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, 'HeadAction', <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.is_HeadAction"
+            },
+            "fsm.is_LookAtAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.is_LookAtAction",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "functools.partial(<bound method Machine.is_state of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, 'LookAtAction', <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.is_LookAtAction"
+            },
+            "fsm.is_init": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.is_init",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "functools.partial(<bound method Machine.is_state of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, 'init', <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.is_init"
+            },
+            "fsm.load_fsm_definition": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.load_fsm_definition",
+                "robot_name": "icubSim",
+                "signature": {
+                    "data": ""
+                },
+                "target": "<bound method iCubFSM.load_fsm_definition of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.load_fsm_definition"
+            },
+            "fsm.may_HeadAction>LookAtAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.may_HeadAction>LookAtAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Machine._can_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>, 'HeadAction>LookAtAction')",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.may_HeadAction>LookAtAction"
+            },
+            "fsm.may_LookAtAction>HeadAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.may_LookAtAction>HeadAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Machine._can_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>, 'LookAtAction>HeadAction')",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.may_LookAtAction>HeadAction"
+            },
+            "fsm.may_LookAtAction>init": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.may_LookAtAction>init",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Machine._can_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>, 'LookAtAction>init')",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.may_LookAtAction>init"
+            },
+            "fsm.may_init>HeadAction": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.may_init>HeadAction",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "functools.partial(<bound method Machine._can_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>, 'init>HeadAction')",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.may_init>HeadAction"
+            },
+            "fsm.may_trigger": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.may_trigger",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": "",
+                    "trigger": ""
+                },
+                "target": "functools.partial(<bound method Machine._can_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.may_trigger"
+            },
+            "fsm.on_exit_init": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.on_exit_init",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": ""
+                },
+                "target": "<bound method FSM.on_exit_init of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.on_exit_init"
+            },
+            "fsm.runStep": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.runStep",
+                "robot_name": "icubSim",
+                "signature": {
+                    "kargs": "",
+                    "trigger": ""
+                },
+                "target": "<bound method FSM.runStep of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.runStep"
+            },
+            "fsm.setApp": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.setApp",
+                "robot_name": "icubSim",
+                "signature": {
+                    "app": ""
+                },
+                "target": "<bound method iCubFSM.setApp of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.setApp"
+            },
+            "fsm.setSessionID": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.setSessionID",
+                "robot_name": "icubSim",
+                "signature": {
+                    "session_id": ""
+                },
+                "target": "<bound method FSM.setSessionID of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.setSessionID"
+            },
+            "fsm.toJSON": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.toJSON",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method FSM.toJSON of <pyicub.rest.iCubFSM object at 0x795979c13610>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.toJSON"
+            },
+            "fsm.trigger": {
+                "app_name": "iCubRESTApp",
+                "name": "fsm.trigger",
+                "robot_name": "icubSim",
+                "signature": {
+                    "args": "",
+                    "kwargs": "",
+                    "trigger_name": ""
+                },
+                "target": "functools.partial(<bound method Machine._get_trigger of <transitions.extensions.diagrams.GraphMachine object at 0x795979c4e9b0>>, <pyicub.rest.iCubFSM object at 0x795979c13610>)",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/fsm.trigger"
+            },
+            "utils.configure": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.configure",
+                "robot_name": "icubSim",
+                "signature": {
+                    "input_args": ""
+                },
+                "target": "<bound method iCubRESTApp.__configure__ of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.configure"
+            },
+            "utils.getArg": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.getArg",
+                "robot_name": "icubSim",
+                "signature": {
+                    "name": ""
+                },
+                "target": "<bound method PyiCubRESTfulServer.getArg of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.getArg"
+            },
+            "utils.getArgs": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.getArgs",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method PyiCubRESTfulServer.getArgs of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.getArgs"
+            },
+            "utils.getArgsTemplate": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.getArgsTemplate",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method PyiCubRESTfulServer.getArgsTemplate of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.getArgsTemplate"
+            },
+            "utils.getServices": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.getServices",
+                "robot_name": "icubSim",
+                "signature": {},
+                "target": "<bound method PyiCubRESTfulServer.getServices of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.getServices"
+            },
+            "utils.setArg": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.setArg",
+                "robot_name": "icubSim",
+                "signature": {
+                    "name": "",
+                    "value": ""
+                },
+                "target": "<bound method PyiCubRESTfulServer.setArg of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.setArg"
+            },
+            "utils.setArgs": {
+                "app_name": "iCubRESTApp",
+                "name": "utils.setArgs",
+                "robot_name": "icubSim",
+                "signature": {
+                    "input_args": ""
+                },
+                "target": "<bound method PyiCubRESTfulServer.setArgs of <pyicub.rest.iCubRESTApp object at 0x7959a2ef7ee0>>",
+                "url": "http://localhost:9001/pyicub/icubSim/iCubRESTApp/utils.setArgs"
+            }
+        }
+    }
+}
