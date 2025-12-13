@@ -956,23 +956,35 @@ class iCubRESTApp(PyiCubRESTfulServer):
         """
         Scans the action_templates_path directory, loads the JSON files, and stores them.
         """
-        self.logger.info(f"Loading action template definitions from '{self.__action_templates_path}'...")
+        # Diagnostic logging: Get absolute path
+        absolute_path = os.path.abspath(self.__action_templates_path)
+        self.logger.info(f"Attempting to load action templates from: {self.__action_templates_path} (Absolute: {absolute_path})")
+
         if not os.path.exists(self.__action_templates_path):
             self.logger.warning(f"Action templates directory '{self.__action_templates_path}' does not exist. Creating it...")
             os.makedirs(self.__action_templates_path)
         
         self.available_actions = {}
         try:
-            for filename in os.listdir(self.__action_templates_path):
+            # Diagnostic logging: List all files found
+            files_in_dir = os.listdir(self.__action_templates_path)
+            self.logger.info(f"Files found in directory: {files_in_dir}")
+
+            for filename in files_in_dir:
                 if filename.endswith('.json'):
                     action_name = os.path.splitext(filename)[0]
                     filepath = os.path.join(self.__action_templates_path, filename)
+                    self.logger.info(f"  - Found JSON file, attempting to load: {filepath}")
                     with open(filepath, 'r') as f:
                         action_data = json.load(f)
                         self.available_actions[action_name] = action_data
-                        self.logger.info(f"  - Loaded action template: '{action_name}'")
+                        self.logger.info(f"  - Successfully loaded action template: '{action_name}'")
+            
+            # Diagnostic logging: Final count
+            self.logger.info(f"Finished loading. Total action templates loaded: {len(self.available_actions)}")
+
         except Exception as e:
-            self.logger.error(f"Error loading action templates: {e}")
+            self.logger.error(f"An error occurred during action template loading: {e}")
 
     def get_available_actions(self, **kwargs):
         """
