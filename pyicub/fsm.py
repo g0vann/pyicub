@@ -156,6 +156,32 @@ class FSM:
     def getSessionCount(self):
         return self._session_count_
 
+    def load_fsm(self, data: dict, auto_transitions=False):
+        """
+        Loads a new FSM configuration from a dictionary, replacing the old one.
+        """
+        # Reset the FSM to a clean state
+        self._name_ = data.get("name", self._name_)
+        self._states_ = []
+        self._transitions_ = []
+        self._triggers_ = {}
+        self._ordered_triggers_ = []
+        self._states_count_ = {}
+        self._root_state_ = None
+        self._machine_ = GraphMachine(model=self, states=[], initial=FSM.INIT_STATE, auto_transitions=auto_transitions)
+        
+        # Load the new configuration
+        self.importFromJSONDict(data)
+
+        # Return the newly loaded configuration for confirmation
+        return self.toJSON()
+
+    def get_full_fsm(self):
+        """
+        Returns the complete current FSM configuration as a dictionary.
+        """
+        return self.toJSON()
+
     def toJSON(self):
         data = {
             "name": self._name_,
