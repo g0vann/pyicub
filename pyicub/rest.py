@@ -718,7 +718,7 @@ class PyiCubRESTfulServer(PyiCubApp):
 
 class iCubRESTApp(PyiCubRESTfulServer):
 
-    def __init__(self, robot_name="icub", action_repository_path='', action_templates_path='pyicub/actions/', **kargs):
+    def __init__(self, robot_name="icub", action_repository_path='', action_templates_path=None, **kargs):
         self.__icub__ = None
 
         SIMULATION = os.getenv('ICUB_SIMULATION')
@@ -733,6 +733,11 @@ class iCubRESTApp(PyiCubRESTfulServer):
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.get_full_fsm, target_name='fsm.get_full_fsm')
         
         # --- Action Templates Management ---
+        # If no path is provided, build a robust default path relative to this file
+        if action_templates_path is None:
+            current_dir = os.path.dirname(__file__)
+            action_templates_path = os.path.join(current_dir, 'actions')
+            
         self.__action_templates_path = action_templates_path
         self.available_actions = {}
         self._load_action_templates()
