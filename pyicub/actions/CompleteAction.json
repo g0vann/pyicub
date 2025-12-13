@@ -1,4 +1,10 @@
 {
+    "_palette": {
+        "id": "CompleteAction_01",
+        "name": "CompleteAction",
+        "icon": "rectangle",
+        "defaultColor": "#d3b3ff"
+    },
     "steps": [
         {
             "name": "Step1",
