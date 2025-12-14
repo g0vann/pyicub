@@ -731,6 +731,7 @@ class iCubRESTApp(PyiCubRESTfulServer):
         # Register the FSM management endpoints
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.load_fsm, target_name='fsm.load_fsm')
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.get_full_fsm, target_name='fsm.get_full_fsm')
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.delete_action, target_name='fsm.delete_action')
         
         # --- Action Templates Management ---
         # If no path is provided, build a robust default path relative to this file
@@ -910,6 +911,7 @@ class iCubRESTApp(PyiCubRESTfulServer):
             # This logic is similar to what's in __configure__
             self.flushActions(name_prefix=self.name + '.FSM')
             self.flushActions(name_prefix=self.name + '.iCubFSM')
+
             for action in self.fsm.actions.values():
                 self.importAction(action, name_prefix=self.name + '.' + self.fsm.name)
 
@@ -923,6 +925,31 @@ class iCubRESTApp(PyiCubRESTfulServer):
         except Exception as e:
             self.logger.error(f"Error during FSM loading: {e}")
             return {"status": "error", "message": str(e)}, 500
+
+    def delete_action(self, action_name, **kwargs):
+            self.logger.info(f"Richiesta DELETE per azione '{action_name}'")
+            # blocca delete su Init se vuoi proteggerla
+            if action_name == 'Init':
+                return {"status": "error", "message": "L'azione Init non può essere eliminata."}, 400
+            # verifica esistenza
+            if action_name not in self.available_actions:
+                return {"status": "error", "message": f"Azione '{action_name}' non trovata."}, 404
+            # opzionale: controlla se l'FSM corrente referenzia l'azione
+            if hasattr(self, 'fsm') and isinstance(self.fsm, iCubFSM):
+                used = any(s.get('name') == action_name for s in self.fsm.getStates())
+                if used:
+                    return {"status": "error", "message": f"Azione '{action_name}' in uso nella FSM corrente."}, 409
+            # elimina file
+            file_path = os.path.join(self.actions_dir, f"{action_name}.json")
+            try:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                self.available_actions.pop(action_name, None)
+                return {"status": "success", "message": f"Azione '{action_name}' eliminata."}
+            except Exception as e:
+                self.logger.error(f"Errore durante l'eliminazione di '{action_name}': {e}")
+                return {"status": "error", "message": str(e)}, 500
+
 
     def get_full_fsm(self, **kwargs):
         """
