@@ -999,13 +999,11 @@ class iCubRESTApp(PyiCubRESTfulServer):
         self.logger.info("Received GET request for available action list.")
         palette_actions = []
         for action_name, action_data in self.available_actions.items():
-            if '_palette' in action_data:
-                palette_info = action_data['_palette'].copy()
-                palette_info['name'] = action_name
-                palette_actions.append(palette_info)
-            else:
-                self.logger.warning(f"Action template '{action_name}' does not contain a '_palette' key for the UI.")
-        
+            palette_actions.append({
+                "name": action_name,
+                "description": action_data.get("description", "Nessuna descrizione disponibile."),
+                "nSteps": len(action_data.get("steps", []))
+            })
         return jsonify(palette_actions)
 
     def get_action_details(self, action_name, **kwargs):
@@ -1031,7 +1029,7 @@ class iCubRESTApp(PyiCubRESTfulServer):
             return {"status": "error", "message": "Invalid or missing JSON request body."}, 400
         
         try:
-            action_name = action_data.get('_palette', {}).get('name')
+            action_name = action_data.get("name")
             if not action_name:
                 return {"status": "error", "message": "The '_palette.name' key is required in the action JSON."}, 400
 
