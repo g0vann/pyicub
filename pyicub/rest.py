@@ -52,6 +52,7 @@ import threading
 import functools
 import importlib
 import logging
+import re
 
 logging.getLogger('werkzeug').setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -717,7 +718,7 @@ class PyiCubRESTfulServer(PyiCubApp):
 
 class iCubRESTApp(PyiCubRESTfulServer):
 
-    def __init__(self, robot_name="icub", action_repository_path='', **kargs):
+    def __init__(self, robot_name="icub", action_repository_path='', action_templates_path=None, **kargs):
         self.__icub__ = None
 
         SIMULATION = os.getenv('ICUB_SIMULATION')
@@ -726,7 +727,31 @@ class iCubRESTApp(PyiCubRESTfulServer):
                 robot_name = "icubSim"
 
         PyiCubRESTfulServer.__init__(self, robot_name=robot_name, **kargs)
+
+        # Register the FSM management endpoints
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.load_fsm, target_name='fsm.load_fsm')
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.get_full_fsm, target_name='fsm.get_full_fsm')
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.delete_action, target_name='fsm.delete_action')
         
+        # --- Action Templates Management ---
+        # If no path is provided, build a robust default path relative to this file
+        if action_templates_path is None:
+            current_dir = os.path.dirname(__file__)
+            action_templates_path = os.path.join(current_dir, 'actions')
+            
+        self.__action_templates_path = action_templates_path
+        self.available_actions = {}
+        self._load_action_templates()
+
+        # Register Action Template endpoints
+        prefix = f"/{self.rest_manager._rule_prefix_}/{self.robot_name}/{self.name}"
+        self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions", 'get_available_actions_route', lambda: self.get_available_actions(), methods=['GET'])
+        self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions/<action_name>", 'get_action_details_route', lambda action_name: self.get_action_details(action_name=action_name), methods=['GET'])
+        self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions/<action_name>/delete", 'delete_action_route', lambda action_name: self.delete_action(action_name=action_name), methods=['GET'])
+        
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.create_action, target_name='actions')
+        
+        # --- Action Repository (for runnable actions) ---
         self.__action_repository__ = action_repository_path
 
         if self.__is_icub_managed__():
@@ -866,9 +891,197 @@ class iCubRESTApp(PyiCubRESTfulServer):
             res = requests.post(url=url, json=data)
             return res.json()
 
+    def load_fsm(self, **fsm_definition):
+        """
+        Loads a new FSM from a JSON definition, replacing the current one.
+        This method handles the FSM object and its associated actions.
+        """
+        try:
+            self.logger.info("Received request to load a new FSM...")
+            if not fsm_definition:
+                self.logger.warning("Attempted to load an FSM from an empty JSON.")
+                return {"status": "error", "message": "Request body cannot be empty."}, 400
+
+            # 1. Create the new iCubFSM object from the JSON definition
+            new_fsm = iCubFSM(JSON_dict=fsm_definition)
+
+            # 2. Set the new FSM in the application.
+            # The existing setFSM method already handles registering the FSM's methods.
+            self.setFSM(new_fsm)
+
+            # 3. Flush old actions and import new ones.
+            # This logic is similar to what's in __configure__
+            self.flushActions(name_prefix=self.name + '.FSM')
+            self.flushActions(name_prefix=self.name + '.iCubFSM')
+
+            for action in self.fsm.actions.values():
+                self.importAction(action, name_prefix=self.name + '.' + self.fsm.name)
+
+            fsm_name = new_fsm.name or "UnnamedFSM"
+            self.logger.info(f"New FSM '{fsm_name}' loaded successfully.")
+            return {
+                "status": "success",
+                "message": f"FSM '{fsm_name}' loaded.",
+                "initial_triggers": self.fsm.getCurrentTriggers()
+            }
+        except Exception as e:
+            self.logger.error(f"Error during FSM loading: {e}")
+            return {"status": "error", "message": str(e)}, 500
+
+    def delete_action(self, action_name, **kwargs):
+            self.logger.info(f"Richiesta DELETE per azione '{action_name}'")
+            # blocca delete su Init se vuoi proteggerla
+            if action_name == 'Init':
+                return {"status": "error", "message": "L'azione Init non può essere eliminata."}, 400
+            # verifica esistenza
+            if action_name not in self.available_actions:
+                return {"status": "error", "message": f"Azione '{action_name}' non trovata."}, 404
+            # opzionale: controlla se l'FSM corrente referenzia l'azione
+            if hasattr(self, 'fsm') and isinstance(self.fsm, iCubFSM):
+                used = any(s.get('name') == action_name for s in self.fsm.getStates())
+                if used:
+                    return {"status": "error", "message": f"Azione '{action_name}' in uso nella FSM corrente."}, 409
+            # elimina file
+            absolute_path = os.path.abspath(self.__action_templates_path)
+            file_path = os.path.join(absolute_path, f"{action_name}.json")
+            try:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                self.available_actions.pop(action_name, None)
+                return {"status": "success", "message": f"Azione '{action_name}' eliminata."}
+            except Exception as e:
+                self.logger.error(f"Errore durante l'eliminazione di '{action_name}': {e}")
+                return {"status": "error", "message": str(e)}, 500
+
+
+    def get_full_fsm(self, **kwargs):
+        """
+        Returns the complete JSON definition of the currently loaded FSM, including actions.
+        """
+        self.logger.info(f"Exporting full definition for FSM '{self.fsm.name}'...")
+        try:
+            if not self.fsm:
+                return {"status": "error", "message": "No FSM is currently loaded."}, 404
+
+            # The FSM object itself might not have a full toJSON with actions.
+            # We construct it here, just like in francolino_v2.py
+            if not isinstance(self.fsm, iCubFSM):
+                 # Fallback for base FSM type, may not include actions
+                return self.fsm.toJSON()
+
+            actions_as_dict = {name: json.loads(action.toJSON()) for name, action in self.fsm.actions.items()}
+            full_fsm_data = {
+                "name": self.fsm.name,
+                "states": self.fsm.getStates(),
+                "transitions": self.fsm.getTransitions(),
+                "initial_state": self.fsm._machine_.initial,
+                "actions": actions_as_dict
+            }
+            return full_fsm_data
+        except Exception as e:
+            self.logger.error(f"Error during full FSM export: {e}")
+            return {"status": "error", "message": str(e)}, 500
+
+
     @property
     def icub(self):
         return self.__icub__
+
+    def _load_action_templates(self):
+        """
+        Scans the action_templates_path directory, loads the JSON files, and stores them.
+        """
+        # Diagnostic logging: Get absolute path
+        absolute_path = os.path.abspath(self.__action_templates_path)
+        self.logger.info(f"Attempting to load action templates from: {self.__action_templates_path} (Absolute: {absolute_path})")
+
+        if not os.path.exists(self.__action_templates_path):
+            self.logger.warning(f"Action templates directory '{self.__action_templates_path}' does not exist. Creating it...")
+            os.makedirs(self.__action_templates_path)
+        
+        self.available_actions = {}
+        try:
+            # Diagnostic logging: List all files found
+            files_in_dir = os.listdir(self.__action_templates_path)
+            self.logger.info(f"Files found in directory: {files_in_dir}")
+
+            for filename in files_in_dir:
+                if filename.endswith('.json'):
+                    action_name = os.path.splitext(filename)[0]
+                    filepath = os.path.join(self.__action_templates_path, filename)
+                    self.logger.info(f"  - Found JSON file, attempting to load: {filepath}")
+                    with open(filepath, 'r') as f:
+                        action_data = json.load(f)
+                        self.available_actions[action_name] = action_data
+                        self.logger.info(f"  - Successfully loaded action template: '{action_name}'")
+            
+            # Diagnostic logging: Final count
+            self.logger.info(f"Finished loading. Total action templates loaded: {len(self.available_actions)}")
+
+        except Exception as e:
+            self.logger.error(f"An error occurred during action template loading: {e}")
+
+    def get_available_actions(self, **kwargs):
+        """
+        Handler for the GET /actions endpoint.
+        Returns a list of 'palette' objects for the UI.
+        """
+        self.logger.info("Received GET request for available action list.")
+        palette_actions = []
+        for action_name, action_data in self.available_actions.items():
+            palette_actions.append({
+                "name": action_name,
+                "description": action_data.get("description", "Nessuna descrizione disponibile."),
+                "nSteps": len(action_data.get("steps", []))
+            })
+        return jsonify(palette_actions)
+
+    def get_action_details(self, action_name, **kwargs):
+        """
+        Handler for the GET /actions/{action_name} endpoint.
+        Returns the full details for a single action template.
+        """
+        self.logger.info(f"Received GET request for action template details: '{action_name}'")
+        action_data = self.available_actions.get(action_name)
+        if action_data:
+            return jsonify(action_data)
+        else:
+            return jsonify({"status": "error", "message": f"Action template '{action_name}' not found."}), 404
+    
+    def create_action(self, **action_data):
+        """
+        Handler for the POST /actions endpoint.
+        Creates a new action template, saves it to disk, and loads it into memory.
+        """
+        self.logger.info(f"Received POST request to create a new action template...")
+        
+        if not action_data:
+            return {"status": "error", "message": "Invalid or missing JSON request body."}, 400
+        
+        try:
+            action_name = action_data.get("name")
+            if not action_name:
+                return {"status": "error", "message": "The '_palette.name' key is required in the action JSON."}, 400
+
+            if not re.match(r'^[a-zA-Z0-9_-]+$', action_name):
+                 return {"status": "error", "message": f"Action name '{action_name}' is invalid. Use only letters, numbers, _, and -."}, 400
+
+            if action_name in self.available_actions:
+                return {"status": "error", "message": f"An action with the name '{action_name}' already exists."}, 409
+            
+            file_path = os.path.join(self.__action_templates_path, f"{action_name}.json")
+            with open(file_path, 'w') as f:
+                json.dump(action_data, f, indent=4)
+            
+            self.available_actions[action_name] = action_data
+            
+            self.logger.info(f"Action template '{action_name}' created and saved successfully to '{file_path}'.")
+            return {"status": "success", "message": f"Action template '{action_name}' created successfully."}
+
+        except Exception as e:
+            self.logger.error(f"Error during action template creation: {e}")
+            return {"status": "error", "message": str(e)}, 500
+
 
 
 class iCubRESTSubscriber(PyiCubApp):
@@ -1148,4 +1361,3 @@ class FSMsManager:
         for k, machine in self.__machines__.items():
             machine.exportJSONFile('%s/%s.json' % (path, k))
             machine.draw('%s/%s.png' % (path, k))
-

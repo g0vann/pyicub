@@ -1,0 +1,45 @@
+{
+    "_palette": {
+        "id": "look_at_01",
+        "name": "LookAtAction",
+        "icon": "diamond",
+        "defaultColor": "#b3d9ff"
+    },
+    "_properties": {
+        "description": { "label": "Description", "type": "string", "nullable": true },
+        "offset_ms": { "label": "Offset (ms)", "type": "number", "nullable": true },
+        "wait_for_steps": { "label": "Wait for Steps (comma-separated)", "type": "boolean[]" }
+    },
+    "steps": [
+        {
+            "name": "Step1",
+            "limb_motions": {},
+            "gaze_motion": {
+                "checkpoints": [
+                    [-1.0, -0.5, 1.0],
+                    [-1.0, -0.2, 0.5],
+                    [-1.0, 0.2, 0.1]
+                ],
+                "lookat_method": "lookAtFixationPoint"
+            },
+            "custom_calls": [],
+            "offset_ms": null
+        },
+        {
+            "name": "Step2",
+            "limb_motions": {},
+            "gaze_motion": {
+                "checkpoints": [
+                    [0.0, 0.0, 0.0, true, 1.5]
+                ],
+                "lookat_method": "lookAtAbsAngles"
+            },
+            "custom_calls": [],
+            "offset_ms": null
+        }
+    ],
+    "wait_for_steps": [true, true],
+    "name": "LookAtAction",
+    "description": null,
+    "offset_ms": null
+}
