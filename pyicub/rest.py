@@ -942,7 +942,8 @@ class iCubRESTApp(PyiCubRESTfulServer):
                 if used:
                     return {"status": "error", "message": f"Azione '{action_name}' in uso nella FSM corrente."}, 409
             # elimina file
-            file_path = os.path.join(self.actions_dir, f"{action_name}.json")
+            absolute_path = os.path.abspath(self.__action_templates_path)
+            file_path = os.path.join(absolute_path, f"{action_name}.json")
             try:
                 if os.path.exists(file_path):
                     os.remove(file_path)
