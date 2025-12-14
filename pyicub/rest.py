@@ -731,7 +731,7 @@ class iCubRESTApp(PyiCubRESTfulServer):
         # Register the FSM management endpoints
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.load_fsm, target_name='fsm.load_fsm')
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.get_full_fsm, target_name='fsm.get_full_fsm')
-        
+        self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.delete_action, target_name='fsm.delete_action')
         
         # --- Action Templates Management ---
         # If no path is provided, build a robust default path relative to this file
@@ -747,7 +747,8 @@ class iCubRESTApp(PyiCubRESTfulServer):
         prefix = f"/{self.rest_manager._rule_prefix_}/{self.robot_name}/{self.name}"
         self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions", 'get_available_actions_route', lambda: self.get_available_actions(), methods=['GET'])
         self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions/<action_name>", 'get_action_details_route', lambda action_name: self.get_action_details(action_name=action_name), methods=['GET'])
-        self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions/<action_name>", 'delete_action_route', lambda action_name: self.delete_action(action_name=action_name), methods=['DELETE'])
+        self.rest_manager._flaskapp_.add_url_rule(f"{prefix}/actions/<action_name>/delete", 'delete_action_route', lambda action_name: self.delete_action(action_name=action_name), methods=['GET'])
+        
         self.__register_method__(robot_name=self.robot_name, app_name=self.name, method=self.create_action, target_name='actions')
         
         # --- Action Repository (for runnable actions) ---
