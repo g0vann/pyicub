@@ -1,6 +1,7 @@
 FROM node:23
 
-ARG PYICUB_FRONTEND_URL=https://github.com/s4hri/pyicub-frontend
+# ARG PYICUB_FRONTEND_URL=https://github.com/s4hri/pyicub-frontend
+ARG PYICUB_FRONTEND_URL=https://github.com/g0vann/pyicub-frontend.git
 ARG PYICUB_FRONTEND_VERSION=master
 ARG PYICUB_API_FRONTEND_PORT=9000
 ARG ROBOT_CODE=/usr/local/src/robot
@@ -9,6 +10,8 @@ ENV PYICUB_API_FRONTEND_PORT=${PYICUB_API_FRONTEND_PORT}
 ENV ROBOT_CODE=${ROBOT_CODE}
 
 RUN mkdir -p $ROBOT_CODE
+
+ARG CACHE_BUST
 
 RUN cd $ROBOT_CODE && \
     git clone ${PYICUB_FRONTEND_URL} pyicub-frontend && \

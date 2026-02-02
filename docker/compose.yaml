@@ -60,6 +60,7 @@ services:
       dockerfile: Dockerfile.pyicub-frontend
       args:
         - PYICUB_FRONTEND_VERSION=${PYICUB_FRONTEND_VERSION}
+        - CACHE_BUST=${CACHE_BUST}
 
     env_file:
       - .env
