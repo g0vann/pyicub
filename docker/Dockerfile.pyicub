@@ -3,7 +3,7 @@ FROM $DOCKER_SRC
 
 ARG WORKDIR="/usr/local/src/robot"
 ARG PYICUB_URL=https://github.com/g0vann/pyicub
-ARG PYICUB_VERSION=backend-prove
+ARG PYICUB_VERSION=master
 ARG PYICUB_APPS_URL=https://github.com/s4hri/pyicub-apps
 ARG PYICUB_APPS_VERSION=master
 
@@ -18,7 +18,6 @@ WORKDIR ${WORKDIR}
 
 ENV PATH=$PATH:/root/.local/bin
 
-ARG CACHE_BUST
 
 RUN cd $WORKDIR && \
     git clone ${PYICUB_URL} pyicub && \

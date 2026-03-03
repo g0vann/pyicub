@@ -12,7 +12,7 @@ services:
         PYICUB_VERSION: ${PYICUB_VERSION:-master}
         PYICUB_APPS_VERSION: ${PYICUB_APPS_VERSION:-master}
         WORKDIR: ${WORKDIR}
-        CACHE_BUST: ${CACHE_BUST}
+        
 
     env_file:
       - .env
@@ -60,7 +60,7 @@ services:
       dockerfile: Dockerfile.pyicub-frontend
       args:
         - PYICUB_FRONTEND_VERSION=${PYICUB_FRONTEND_VERSION}
-        - CACHE_BUST=${CACHE_BUST}
+        
 
     env_file:
       - .env
