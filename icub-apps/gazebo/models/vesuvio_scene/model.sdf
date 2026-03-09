@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <model name="vesuvio_scene">
+    <static>true</static>
+    <link name="scene_link">
+
+      <visual name="vesuvio_background_visual">
+        <pose>-2.2 0 1.6 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 5.0 3.2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://vesuvio_scene/materials/scripts</uri>
+            <uri>model://vesuvio_scene/materials/textures</uri>
+            <name>Vesuvio/Texture</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="vesuvio_cube_visual">
+        <pose>1.0 0 0.2 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.4 0.4 0.4</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://vesuvio_scene/materials/scripts</uri>
+            <uri>model://vesuvio_scene/materials/textures</uri>
+            <name>Vesuvio/Texture</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name="vesuvio_cube_collision">
+        <pose>1.0 0 0.2 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.4 0.4 0.4</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

@@ -45,6 +45,12 @@
       </include>
     </model>
 
+    <include>
+      <uri>model://vesuvio_scene</uri>
+      <name>vesuvio_scene</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose frame=''>-1.73754 2.13332 1.77051 0 0.463643 -1.0638</pose>

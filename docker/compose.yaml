@@ -9,7 +9,9 @@ services:
       dockerfile: docker/Dockerfile.pyicub
       args:
         DOCKER_SRC: ${ROBOTOLOGY_IMAGE_NAME}
+        PYICUB_URL: ${PYICUB_URL:-https://github.com/g0vann/pyicub}
         PYICUB_VERSION: ${PYICUB_VERSION:-master}
+        PYICUB_APPS_URL: ${PYICUB_APPS_URL:-https://github.com/s4hri/pyicub-apps}
         PYICUB_APPS_VERSION: ${PYICUB_APPS_VERSION:-master}
         WORKDIR: ${WORKDIR}
         

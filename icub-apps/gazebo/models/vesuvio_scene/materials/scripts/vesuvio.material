@@ -1,0 +1,17 @@
+material Vesuvio/Texture
+{
+  technique
+  {
+    pass
+    {
+      cull_hardware none
+      cull_software none
+
+      texture_unit
+      {
+        texture vesuvio.png
+        filtering trilinear
+      }
+    }
+  }
+}

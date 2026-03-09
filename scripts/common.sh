@@ -2,9 +2,38 @@
 
 set -e
 
+append_path_if_missing() {
+  local current_path="$1"
+  local new_entry="$2"
+
+  if [ -z "$current_path" ]; then
+    echo "$new_entry"
+    return
+  fi
+
+  if [[ ":$current_path:" == *":$new_entry:"* ]]; then
+    echo "$current_path"
+  else
+    echo "$new_entry:$current_path"
+  fi
+}
+
+configure_gazebo_paths() {
+  if [ -z "${ICUB_APPS}" ]; then
+    return
+  fi
+
+  local custom_models="${ICUB_APPS}/gazebo/models"
+  local custom_resources="${ICUB_APPS}/gazebo"
+
+  export GAZEBO_MODEL_PATH="$(append_path_if_missing "${GAZEBO_MODEL_PATH}" "${custom_models}")"
+  export GAZEBO_RESOURCE_PATH="$(append_path_if_missing "${GAZEBO_RESOURCE_PATH}" "${custom_resources}")"
+}
+
 initialize_environment() {
   echo "Initializing environment..."
   source "${ROBOTOLOGY_SUPERBUILD_INSTALL_DIR}/share/robotology-superbuild/setup.sh"
+  configure_gazebo_paths
 }
 
 wait_for_icub_host() {
